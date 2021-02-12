@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: readynotsteady
+spec:
+  template:
+    spec:
+      containers:
+        - image: ko://github.com/julz/readybutnotsteady
+          readinessProbe:
+            httpGet:
+                path: /doesnt-matter
+            periodSeconds: 5
+            failureThreshold: 1
+            timeoutSeconds: 1
